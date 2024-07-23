@@ -21,6 +21,8 @@ type EsSettingDatas struct {
 type GitlabSettingDatas struct {
 	Token     string
 	GithubUrl string
+	Username  string
+	Password  string
 }
 type RedisSettingDatas struct {
 	Addresse string
@@ -71,9 +73,13 @@ func (clientAll *ClientAll) DbManagerClient(clientType string) {
 	} else if strings.Split(clientType, ".")[0] == "gitlab" {
 		token, _ := viper.Get(clientType + ".Token").(string)
 		url, _ := viper.Get(clientType + ".Url").(string)
+		username, _ := viper.Get(clientType + ".Username").(string)
+		password, _ := viper.Get(clientType + ".Password").(string)
+
 		clientAll.GitlabSettingData.GithubUrl = url
 		clientAll.GitlabSettingData.Token = token
-
+		clientAll.GitlabSettingData.Username = username
+		clientAll.GitlabSettingData.Password = password
 		git_Client := clientAll.GetGitlabClient()
 		clientAll.GitClient = git_Client
 
